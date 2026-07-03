@@ -7,6 +7,6 @@
 
 visibility: public
 purpose: >
-  Replace this with a brief description of what this repo is for
-  and why it exists. Used by automated security audits to verify
-  visibility intent matches actual settings.
+  GitHub repository template pre-wired with security defaults — gitleaks,
+  Dependabot, weekly security audit via security-workflows, SECURITY.md,
+  PR template, .editorconfig, and .gitignore. Use when creating any new repo.
