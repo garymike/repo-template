@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # Uncomment and adjust the ecosystems that apply to this repo.
+  # Remove entries for ecosystems not in use.
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+
+  # - package-ecosystem: pip
+  #   directory: "/"
+  #   schedule:
+  #     interval: weekly
+  #     day: monday
+
+  # - package-ecosystem: github-actions
+  #   directory: "/"
+  #   schedule:
+  #     interval: weekly
+  #     day: monday
