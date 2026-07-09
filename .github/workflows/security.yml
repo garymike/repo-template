@@ -16,14 +16,14 @@ jobs:
     permissions:
       contents: read
       packages: read
-    uses: garymike/security-workflows/.github/workflows/security-scan.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc # v0.4.0
+    uses: garymike/security-workflows/.github/workflows/security-scan.yml@0ca59a6b417f14938311189936fea527ebf6385b # v0.4.2
     secrets: inherit
 
   gha-security:
     permissions:
       contents: read
       packages: read
-    uses: garymike/security-workflows/.github/workflows/gha-security.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc # v0.4.0
+    uses: garymike/security-workflows/.github/workflows/gha-security.yml@0ca59a6b417f14938311189936fea527ebf6385b # v0.4.2
     secrets: inherit
 
   sast:
@@ -31,7 +31,7 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: garymike/security-workflows/.github/workflows/sast.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc # v0.4.0
+    uses: garymike/security-workflows/.github/workflows/sast.yml@0ca59a6b417f14938311189936fea527ebf6385b # v0.4.2
     secrets: inherit
 
   iac-security:
@@ -39,18 +39,17 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: garymike/security-workflows/.github/workflows/iac-security.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc # v0.4.0
+    uses: garymike/security-workflows/.github/workflows/iac-security.yml@0ca59a6b417f14938311189936fea527ebf6385b # v0.4.2
     secrets: inherit
 
   audit:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
-      administration: read
-    uses: garymike/security-workflows/.github/workflows/security-audit.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc # v0.4.0
+    uses: garymike/security-workflows/.github/workflows/security-audit.yml@0ca59a6b417f14938311189936fea527ebf6385b # v0.4.2
     secrets: inherit
 
   # Optional opt-ins:
   #   CodeQL — enable GitHub code-scanning "default setup" (Settings -> Code security),
-  #   or call codeql.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc with `languages:` set.
-  #   skill-audit.yml@854f2d650e52253b34fcf8f416198ef8bf82abdc — for repos shipping agent skills.
+  #   or call codeql.yml@0ca59a6b417f14938311189936fea527ebf6385b with `languages:` set.
+  #   skill-audit.yml@0ca59a6b417f14938311189936fea527ebf6385b — for repos shipping agent skills.
