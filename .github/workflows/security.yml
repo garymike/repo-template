@@ -1,12 +1,22 @@
 name: Security
 
 on:
+  # Scan pushes to the default branch + every PR. Feature-branch pushes are
+  # already covered by their PR, so scanning every branch push too
+  # (branches: ["**"]) double-bills Actions minutes on private repos. Public
+  # repos have free Actions and may broaden to branches: ["**"] if they want
+  # direct-push coverage on branches that never open a PR.
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
   schedule:
     - cron: '0 8 * * 1'
   workflow_dispatch:
+
+# Cancel superseded runs on the same ref (rapid pushes / PR updates).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -16,14 +26,14 @@ jobs:
     permissions:
       contents: read
       packages: read
-    uses: garymike/security-workflows/.github/workflows/security-scan.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 # v0.4.3
+    uses: garymike/security-workflows/.github/workflows/security-scan.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 # v1.3.0
     secrets: inherit
 
   gha-security:
     permissions:
       contents: read
       packages: read
-    uses: garymike/security-workflows/.github/workflows/gha-security.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 # v0.4.3
+    uses: garymike/security-workflows/.github/workflows/gha-security.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 # v1.3.0
     secrets: inherit
 
   sast:
@@ -31,7 +41,7 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: garymike/security-workflows/.github/workflows/sast.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 # v0.4.3
+    uses: garymike/security-workflows/.github/workflows/sast.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 # v1.3.0
     secrets: inherit
 
   iac-security:
@@ -39,17 +49,17 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: garymike/security-workflows/.github/workflows/iac-security.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 # v0.4.3
+    uses: garymike/security-workflows/.github/workflows/iac-security.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 # v1.3.0
     secrets: inherit
 
   audit:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
-    uses: garymike/security-workflows/.github/workflows/security-audit.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 # v0.4.3
+    uses: garymike/security-workflows/.github/workflows/security-audit.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 # v1.3.0
     secrets: inherit
 
   # Optional opt-ins:
   #   CodeQL — enable GitHub code-scanning "default setup" (Settings -> Code security),
-  #   or call codeql.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 with `languages:` set.
-  #   skill-audit.yml@173cbfb4bbcc9e4c2a95a8bec9de0c4f42719eb0 — for repos shipping agent skills.
+  #   or call codeql.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 with `languages:` set.
+  #   skill-audit.yml@e794b2ea1799e1e7414cdbd7d8ef489c1f3820f0 — for repos shipping agent skills.
