@@ -10,6 +10,7 @@ A GitHub repository template pre-wired with security defaults. Every new repo cr
 - **PR template** — checklist covering secrets, tests, and security impact
 - **`.editorconfig`** — consistent formatting defaults
 - **`.gitignore`** — covers `.env`, keys, certs, common build artifacts
+- **`CHANGELOG.md` + `RELEASING.md`** — release tracking via semver tags, an in-tree changelog, and GitHub Releases
 
 ## Using this template
 
@@ -24,6 +25,7 @@ After creating your repo, do three things:
 1. **Update `.github/repo-metadata.yml`** — set `visibility:` to `public` or `private` and replace the `purpose:` placeholder with a one-line description of the repo.
 2. **Update `README.md`** — replace this file with your project's README.
 3. **Update `.github/dependabot.yml`** — uncomment the package ecosystems your project uses.
+4. **Reset `CHANGELOG.md`** — keep the `Unreleased` heading and clear the scaffold note as you add real changes. See [RELEASING.md](RELEASING.md) for how to cut a release.
 
 ## Security pipeline
 
