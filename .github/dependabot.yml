@@ -1,22 +1,40 @@
+# Scaffolding for repositories created from this template.
+#
+# github-actions is active because it applies to every repository: this
+# template ships workflows, their actions are pinned, and a pin does not update
+# itself. Dependabot's security updates cover advisories in application
+# dependencies, not routine action versions, so without this entry the pins
+# simply rot -- which is what happened across this estate, where callers of the
+# shared security workflow sat 7 to 9 weeks behind it until 2026-09-09.
+#
+# The language ecosystems below are commented out deliberately: which of them
+# applies depends on what the new repository actually contains. Uncomment the
+# ones that do and delete the rest.
+#
+# npm used to be the active entry here even though this template ships no
+# package.json, so every scaffolded repository inherited an entry pointing at a
+# manifest that did not exist -- while github-actions, the one entry that
+# applied to all of them, was the commented-out one.
 version: 2
 updates:
-  # Uncomment and adjust the ecosystems that apply to this repo.
-  # Remove entries for ecosystems not in use.
-
-  - package-ecosystem: npm
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
       interval: weekly
-      day: monday
-    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
 
-  # - package-ecosystem: pip
+  # - package-ecosystem: npm
   #   directory: "/"
   #   schedule:
   #     interval: weekly
   #     day: monday
+  #   open-pull-requests-limit: 5
 
-  # - package-ecosystem: github-actions
+  # - package-ecosystem: pip
   #   directory: "/"
   #   schedule:
   #     interval: weekly
