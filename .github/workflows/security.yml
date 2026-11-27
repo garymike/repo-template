@@ -1,14 +1,23 @@
 name: Security
 
 on:
-  # Scan pushes to main and every PR. Feature-branch pushes are covered by their
-  # PR, so scanning every branch push too (branches: ["**"]) just double-billed.
-  push:
-    branches: [main]
+  # Every PR, plus a weekly scan of main. If a ruleset requires PRs with these checks,
+  # a push to main is a squash merge of a tree its PR just scanned, so a push trigger
+  # repeats the same work. The schedule scans main on its own, and is the only trigger
+  # that runs the audit job.
   pull_request:
   schedule:
     - cron: '0 8 * * 1'
   workflow_dispatch:
+  # Opt back in to scanning pushes to main when either of these applies:
+  # - the repo allows direct pushes to main, which no PR scan sees;
+  # - the repo is public and uploads SARIF (sast, iac-security). Code scanning tracks
+  #   main's alerts from runs on main, so without a push trigger a merged fix closes
+  #   its alert, and a merged finding opens one, only at the next weekly run. Public
+  #   repos run Actions free, so this costs nothing there.
+  # push:
+  #   branches: [main]
+  # Don't broaden it to branches: ["**"]: feature branches are covered by their PR.
 
 # Cancel superseded runs on the same ref (rapid pushes / PR updates).
 concurrency:

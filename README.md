@@ -2,7 +2,7 @@
 
 A GitHub repository template pre-wired with security defaults. Every new repo created from this template starts with:
 
-- **Gitleaks** secret scanning on every push and PR
+- **Gitleaks** secret scanning on every PR, plus a weekly scan of `main`
 - **Dependabot** configuration (uncomment the ecosystems you use)
 - **Weekly security audit** via [garymike/security-workflows](https://github.com/garymike/security-workflows)
 - **SECURITY.md** — private vulnerability reporting instructions
@@ -33,7 +33,7 @@ The template wires into two reusable workflows in [garymike/security-workflows](
 
 | Workflow | Trigger | What it checks |
 |---|---|---|
-| `security-scan.yml` | push, PR | Gitleaks secrets, unpinned actions, SECURITY.md presence |
+| `security-scan.yml` | PR, weekly + manual | Gitleaks secrets, unpinned actions, SECURITY.md presence |
 | `security-audit.yml` | weekly + manual | Dependabot, Actions permissions, branch protection, delete-on-merge |
 
 The weekly [Claude security audit skill](https://github.com/garymike/skills) runs across all repos and catches anything the per-repo GHA can't see — new repos missing the template, account-level drift, OAuth/PAT hygiene.
